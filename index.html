@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stream Data Display</title>
+</head>
+<body>
+    <h1>Streaming Data</h1>
+
+    <!-- 输入框 -->
+    <input type="text" id="input-box" placeholder="Enter your input here">
+
+    <!-- 输出文本框 -->
+    <textarea id="data-container" rows="10" cols="50"></textarea><br>
+
+    <!-- 提交按钮 -->
+    <button onclick="fetchData()">Submit</button>
+
+    <script>
+        async function fetchData() {
+            // 从输入框获取值
+            let inputValue = document.getElementById('input-box').value;
+            console.log('Input:', inputValue);
+
+            // 构建 JSON 负载
+            let data = JSON.stringify({ message: inputValue ,knowledgebase:"CNV-seq"});
+
+            // 发送 POST 请求
+            const response = await fetch('/llm', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: data
+            });
+            const reader = response.body.getReader();
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                const text = new TextDecoder().decode(value);
+                console.log(text);
+                document.getElementById('data-container').value += text; // 修改为 value
+            }
+        }
+    </script>
+</body>
+</html>

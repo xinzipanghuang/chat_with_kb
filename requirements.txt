@@ -1,0 +1,5 @@
+fastapi==0.105.0
+gradio==4.11.0
+langchain==0.0.351
+pydantic==2.5.2
+uvicorn==0.24.0.post1
