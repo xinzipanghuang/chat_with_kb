@@ -5,6 +5,9 @@
 ```
 pip install -r requirements.txt 
 ```
+### 添加APIKEY
+
+utils.py apikey="" 添加KEY
 
 ### 知识库建立
 
